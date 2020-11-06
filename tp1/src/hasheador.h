@@ -29,6 +29,8 @@ void hasheador_inicializar(hasheador_t* hasheador);
 
 void hasheador_destruir(hasheador_t* hasheador);
 
+int hasheador_correr(hashador_t* hasheador, int n_parametros, const char* parametros[])
+
 int32_t hasheador_hashear_linea(hasheador_t* hasheador, char* linea);
 
 #endif
