@@ -1,6 +1,8 @@
 #ifndef HASHEADOR_H
 #define HASHEADOR_H
 
+#include <stdint.h>
+
 #include "hash.h"
 
 #define MENSAJE_USO "\
@@ -21,6 +23,13 @@ Examples:\n\
 tp1 < in.txt > out.txt\n\
 cat in.txt | tp1 -i - > out.txt\n"
 
+#define MENSAJE_VERSION "version 0.1\n"
+
+#define ESTADO_OK 0
+#define ESTADO_ERROR -1
+#define CHAR_AYUDA 'h'
+#define CHAR_VERSION 'V'
+
 typedef struct hasheador {
     int estado;
 } hasheador_t;
@@ -29,7 +38,7 @@ void hasheador_inicializar(hasheador_t* hasheador);
 
 void hasheador_destruir(hasheador_t* hasheador);
 
-int hasheador_correr(hashador_t* hasheador, int n_parametros, const char* parametros[])
+int hasheador_correr(hasheador_t* hasheador, int n_parametros, const char* parametros[]);
 
 int32_t hasheador_hashear_linea(hasheador_t* hasheador, char* linea);
 
