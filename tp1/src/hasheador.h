@@ -2,6 +2,7 @@
 #define HASHEADOR_H
 
 #include <stdint.h>
+#include <stdio.h>
 
 #include "hash.h"
 
@@ -30,15 +31,22 @@ cat in.txt | tp1 -i - > out.txt\n"
 #define CHAR_AYUDA 'h'
 #define CHAR_VERSION 'V'
 
+#define MODO_AYUDA 0
+#define MODO_VERSION 1
+#define MODO_CORRER 2
+
 typedef struct hasheador {
+    FILE* entrada;
+    FILE* salida;
     int estado;
+    int modo;
 } hasheador_t;
 
-void hasheador_inicializar(hasheador_t* hasheador);
+void hasheador_inicializar(hasheador_t* hasheador, int n_parametros, const char* parametros[]);
 
 void hasheador_destruir(hasheador_t* hasheador);
 
-int hasheador_correr(hasheador_t* hasheador, int n_parametros, const char* parametros[]);
+int hasheador_correr(hasheador_t* hasheador);
 
 int32_t hasheador_hashear_linea(hasheador_t* hasheador, char* linea);
 
