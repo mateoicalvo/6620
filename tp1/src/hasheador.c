@@ -52,6 +52,9 @@ void hasheador_destruir(hasheador_t* hasheador) {
     if (hasheador->entrada != stdin) {
         fclose(stdin);
     }
+    if (hasheador->salida != stdout) {
+        fclose(stdout);
+    }
 }
 
 int hasheador_correr(hasheador_t* hasheador) {
