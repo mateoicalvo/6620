@@ -1,7 +1,9 @@
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 
 #include "hasheador.h"
+#include "hash.h"
 
 int hasheador_inicializar(hasheador_t* hasheador, int n_parametros, const char* parametros[]) {
     if (n_parametros != 1 && n_parametros != 4) {
@@ -58,7 +60,6 @@ void hasheador_destruir(hasheador_t* hasheador) {
 }
 
 int hasheador_correr(hasheador_t* hasheador) {
-    //TODO: ejecutar bucle principal.
     if (hasheador->estado == ESTADO_ERROR) {
         printf("%s", MENSAJE_USO);
         return RESULTADO_ERROR;
@@ -68,9 +69,27 @@ int hasheador_correr(hasheador_t* hasheador) {
     } else if (hasheador->modo == MODO_VERSION) {
         printf("%s", MENSAJE_VERSION);
         return RESULTADO_OK;
+    } else { // Modo correr
+        hasheador_hashear_archivo(hasheador);
     }
-
     return 0;
+}
+
+void hasheador_hashear_archivo(hasheador_t* hasheador) {
+
+    string_hash sh;
+    
+    char* line_ptr = NULL;
+    size_t tamanio = 0;
+
+    while (getline(&line_ptr, &tamanio, hasheador->entrada) != -1) {
+        string_hash_init(&sh);
+        string_hash_more(&sh, line_ptr, tamanio);
+        string_hash_done(&sh);
+        fprintf(hasheador->salida, "0x%08x %s", \
+            string_hash_value(&sh), line_ptr);
+    }    
+    free(line_ptr);
 }
 
 int32_t hasheador_hashear_linea(hasheador_t* hasheador, char* linea) {
