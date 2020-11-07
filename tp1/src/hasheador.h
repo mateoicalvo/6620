@@ -35,6 +35,9 @@ cat in.txt | tp1 -i - > out.txt\n"
 #define MODO_VERSION 1
 #define MODO_CORRER 2
 
+#define RESULTADO_OK 0
+#define RESULTADO_ERROR -1
+
 typedef struct hasheador {
     FILE* entrada;
     FILE* salida;
@@ -42,7 +45,7 @@ typedef struct hasheador {
     int modo;
 } hasheador_t;
 
-void hasheador_inicializar(hasheador_t* hasheador, int n_parametros, const char* parametros[]);
+int hasheador_inicializar(hasheador_t* hasheador, int n_parametros, const char* parametros[]);
 
 void hasheador_destruir(hasheador_t* hasheador);
 
