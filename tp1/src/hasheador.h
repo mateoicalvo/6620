@@ -4,8 +4,6 @@
 #include <stdint.h>
 #include <stdio.h>
 
-#include "hash.h"
-
 #define MENSAJE_USO "\
 Usage:\n\
 tp1 -h\n\
