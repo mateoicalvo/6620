@@ -65,31 +65,42 @@ string_hash_more:
 #llego aca, t0 == STRING_HASH_INIT
 HASH_INIT:
 	add t1,zero,1		#t1 = 1 = STRING_HASH_MORE
-	lw t2, 8(fp)		#t2 = direccion de sh
+	addiu t2, a0, 0		#t2 = direccion de sh
 	sb t1, 0(t2)		#h->flag= t1 = 1
-	lw t3, 12(fp)		#t3= direccion de str
-	lw t1, 0(t3) 		#t1= str
-	sll t1, t1, 7		#(*str)<<7
-	sw t1, 4(t2)		#sh->hash = (*str)<<7
+	addiu t3, a1, 0		#t3= direccion de str
+	lb t1, 0(a1) 		#t1= str
+	sll t5, t1, 7		#(*str)<<7
+	sw t5, 4(t2)		#sh->hash = (*str)<<7
 	lw t4, 16(fp)		#t4 = len
 
-WHILE:
-	beq t1, zero, RETURN	#anda a return si t1=0
-	blez t4,RETURN		#anda a return si len <=0
 
-	subu t4,t4,1		#len--
+# En t5 pongo str
+# En t6 pongo *str
+
+addiu t5, a1, 0
+lb t6, 0(a1)
+
+WHILE:
+	beq t6, zero, RETURN	#anda a return si el char es cero
+	beqz t4,RETURN		#anda a return si len ==0 // No deberia dar la vuelta
+
+	addi t4,t4,-1		#len--
 	
 	li t0, 1000003		#load inmediate. t0=1000003
 
-	lw t3, 4(t2)		#t3 = sh->hash
+	lw t3, 4(a0)		#t3 = sh->hash
 	mul t3,t0,t3		#t3= 1000003 * sh->hash
-	add t1,t1,1		#*str++
-
-	xor t3,t3,t1		#el xor entre sh++ y lo otro
-	sw t3,4(t2)		#sh->hash = t3
-	lw t3,8(t2)		#t3= sh->size
+	
+	# el xor, luego el inc.
+	xor t3,t3,t6		#el xor entre sh++ y lo otro
+	addiu t5, t5, 1 #inc puntero
+	lb t6, 0(t5) # refresco char
+	
+	#add t1,t1,1		#*str++ #FIXME: esto esta mal
+	sw t3,4(a0)		#sh->hash = t3
+	lw t3,8(a0)		#t3= sh->size
 	add t3,t3,1		#t3=t3+1
-	sw t3,8(t2)		#sh->size= sh->size +1
+	sw t3,8(a0)		#sh->size= sh->size +1
 	j WHILE
 
 
