@@ -55,18 +55,18 @@ string_hash_more:
 	lb t0,0(a0)	#t0 = memoria[$a0 + 0]
 	
 #hacemos ahora las comparaciones del assert
+	li t5, 2
+	beq t0, t5, WHILE	#if sh->flag == 1 salta a WHILE
 
-	beq t0, 2, WHILE	#if sh->flag == 1 salta a WHILE
-
-
+	li t6, 1
 #si llega aca no se cumplio la primer comparacion
-	bne t0, 1 ,FALLO_ASSERT	#segunda comparacion
+	bne t0, t6 ,FALLO_ASSERT	#segunda comparacion
 
 #llego aca, t0 == STRING_HASH_INIT
 HASH_INIT:
 	add t1,zero,1		#t1 = 1 = STRING_HASH_MORE
 	lw t2, 8(fp)		#t2 = direccion de sh
-	sw t1, 0(t2)		#h->flag= t1 = 1
+	sb t1, 0(t2)		#h->flag= t1 = 1
 	lw t3, 12(fp)		#t3= direccion de str
 	lw t1, 0(t3) 		#t1= str
 	sll t1, t1, 7		#(*str)<<7
