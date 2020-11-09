@@ -9,6 +9,8 @@
 			#vamos a respetar las llamadas de la abi. No
 			#es necesario pero creo aporta info al debugger
 	.align 2	#alineamos la instruccion a multiplo de 4
+    .ent string_hash_more
+    .globl string_hash_more
 
 string_hash_more:
 	.frame fp,8,ra	#puse 8 porque es la cantidad de bytes que 
@@ -58,7 +60,7 @@ string_hash_more:
 
 
 #si llega aca no se cumplio la primer comparacion
-	bneq t0, 1 ,FALLO_ASSERT	#segunda comparacion
+	bne t0, 1 ,FALLO_ASSERT	#segunda comparacion
 
 #llego aca, t0 == STRING_HASH_INIT
 HASH_INIT:
@@ -66,7 +68,7 @@ HASH_INIT:
 	lw t2, 8(fp)		#t2 = direccion de sh
 	sw t1, 0(t2)		#h->flag= t1 = 1
 	lw t3, 12(fp)		#t3= direccion de str
-	lw t1, t3 		#t1= str
+	lw t1, 0(t3) 		#t1= str
 	sll t1, t1, 7		#(*str)<<7
 	sw t1, 4(t2)		#sh->hash = (*str)<<7
 	lw t4, 16(fp)		#t4 = len
@@ -94,7 +96,7 @@ WHILE:
 RETURN:
 	
 	lw fp,4(sp)		#recupero el fp original
-	addlu sp,sp,8		#destruyo el stack frame
+	addiu sp,sp,8		#destruyo el stack frame
 	jr ra
 
 

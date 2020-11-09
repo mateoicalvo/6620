@@ -11,7 +11,7 @@ string_hash_init(string_hash *h)
 	h->size = 0;
 }
 
-void
+/*void
 string_hash_more(string_hash *sh, char *str, size_t len)
 {
 	assert(sh->flag == STRING_HASH_INIT || sh->flag == STRING_HASH_MORE);
@@ -25,7 +25,7 @@ string_hash_more(string_hash *sh, char *str, size_t len)
 		sh->hash = (1000003 * sh->hash) ^ *str++;
 		sh->size++;
 	}
-}
+}*/
 
 void
 string_hash_done(string_hash *sh)
