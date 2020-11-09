@@ -1,10 +1,12 @@
 #include <sys/regdef.h>
+#include <sys/syscall.h>
 
     .abicalls
     .rdata
     #TODO: Acá iría el mensaje de error, en string, del assert.
     .align 0
 mensaje_error_assert: .asciiz "Error en el assert\n"
+longitud_msj_error: .word 19
 
     #TODO: El assert.
 
@@ -26,30 +28,56 @@ string_hash_more:
     move fp,sp
 
     #En el ABA de la caller
-    sw a0, 8(fp)	#direccion de sh esta en fp+8
+        sw a0, 8(fp)	#direccion de sh esta en fp+8
 	sw a1, 12(fp)	#direccion de str esta en fp+12
 	sw a2, 16(fp)
 
     #TODO: ejecutar el assert.
+    #ya hecho
 
     #Cargo sh->flag
-    lb t0, 0(a0) #t0 = sh->flag
+    #lb t0, 0(a0) #t0 = sh->flag
+
+    #lo cambie para que use la ABA del caller en lugar de registro 
+    #del argumento. 
+    lw t2, 8(fp) 	#t2=direccion de sh
+    lb t0, 0(t2)
 
     #Cargo 1 en t1
     li t1, 1
 
-    #si sh->flag != STRING_HASH_INIT salto al while
-    bne t0, t1, while
+    #si sh->flag == STRING_HASH_INIT salto a flag_init
+    beq t0, t1, flag_init
 
-    #sh->flag es STRING_HASH_INIT que es 1
+    #cargo 2 en t1
+    li t1,2
+    #si sh->flag == STRING_HASH_MORE salto al while
+    beq t0, t1, while
 
+assertion_fail:
+    #primera linea dudosa
+    # Stderr -> 
+    li a0,2	
+    la a1, mensaje_error_assert
+    lw a2, longitud_msj_error
+    li v0, SYS_write
+    syscall
+    li v0, SYS_exit
+    syscall
+
+
+flag_init:
     #cargo en t0 el valor STRING_HASH_MORE
     li t0, 2
     #modifico el struct, sh->flag = STRING_HASH_MORE
-    sb t0, 0(a0)
+    sb t0, 0(t2)
 
     #recupero *str en t0
-    lb t0, 0(a1)
+    # cargar 12(fp)
+    # lb
+    lw t2, 12(fp)
+    lb t0, 0(t2)
+    #lb t0, 0(a1)
     #Hago el sll y lo meto en t0
     sll t0, t0, 7		#(*str)<<7
     #Guardo ese valor en sh->hash
@@ -109,5 +137,7 @@ salir:
     lw fp, 4(sp)
     addiu sp,sp,8
     jr ra
+
+	
 
     .end string_hash_more
