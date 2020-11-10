@@ -49,8 +49,6 @@ void hasheador_destruir(hasheador_t* hasheador);
 
 int hasheador_correr(hasheador_t* hasheador);
 
-int32_t hasheador_hashear_linea(hasheador_t* hasheador, char* linea);
-
 void hasheador_hashear_archivo(hasheador_t* hasheador);
 
 #endif

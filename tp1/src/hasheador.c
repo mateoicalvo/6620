@@ -83,18 +83,11 @@ void hasheador_hashear_archivo(hasheador_t* hasheador) {
     size_t tamanio = 0;
 
     while (getline(&line_ptr, &tamanio, hasheador->entrada) != -1) {
-        //TODO: Si es -1 hay imprimir algun mensaje de error
         string_hash_init(&sh);
         string_hash_more(&sh, line_ptr, tamanio);
         string_hash_done(&sh);
-        //TODO: ver si es un write()?
         fprintf(hasheador->salida, "0x%08x %s", \
             string_hash_value(&sh), line_ptr);
     }    
     free(line_ptr);
-}
-
-int32_t hasheador_hashear_linea(hasheador_t* hasheador, char* linea) {
-    //TODO: logica de hasheo de cada línea
-    return 0;
 }
