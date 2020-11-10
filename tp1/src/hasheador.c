@@ -6,6 +6,22 @@
 #include "hasheador.h"
 #include "hash.h"
 
+
+/*
+Devuelve true si el null-terminated string str se encuentra en array.
+Si se especifica pos, se devuelve alli la posicion.
+Params:
+    str: string que se quiere buscar
+    array: arreglo de strings
+    array_size: tamanio de array
+    pos: puntero donde se devuelve la posicion, NULL para ignorar
+        comportamiento
+Retorno:
+    true si str se encuentra en array, false en caso contrario.
+    si str se encuentra en array y pos no es NULL, pos contiene
+    la posicion de str en array.
+    Si str no se encuentra en array, pos no se altera.
+*/
 static bool str_en_array(const char* str, \
     const char** array, size_t array_size, size_t* pos) {
 

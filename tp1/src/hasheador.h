@@ -45,12 +45,32 @@ typedef struct hasheador {
     int modo;
 } hasheador_t;
 
+
+/*
+Inicializa un hasheador, con sus parametros recibidos.
+Params:
+    hasheador: un puntero valido
+    n_parametros: cantidad de parametros recibidos
+    parametros: array de strings que contiene los parametros
+Retorno:
+    ESTADO_OK (0) si no hay fallos, ESTADO_ERROR (-1) en caso contrario
+*/
 int hasheador_inicializar(hasheador_t* hasheador, int n_parametros, const char* parametros[]);
 
+/*
+Destruye y libera todos los recursos adquiridos en hasheador.
+*/
 void hasheador_destruir(hasheador_t* hasheador);
 
+/*
+Ejecuta el hasheador segun el modo elegido en los parametros recibidos
+*/
 int hasheador_correr(hasheador_t* hasheador);
 
+/*
+Para cada linea de la entrada del hasheador, calcula su valor de hash, e
+imprime el resultado seguido de la linea.
+*/
 int hasheador_hashear_archivo(hasheador_t* hasheador);
 
 #endif
