@@ -45,7 +45,6 @@ typedef struct hasheador {
     int modo;
 } hasheador_t;
 
-
 /*
 Inicializa un hasheador, con sus parametros recibidos.
 Params:
@@ -55,7 +54,8 @@ Params:
 Retorno:
     ESTADO_OK (0) si no hay fallos, ESTADO_ERROR (-1) en caso contrario
 */
-int hasheador_inicializar(hasheador_t* hasheador, int n_parametros, const char* parametros[]);
+int hasheador_inicializar(hasheador_t* hasheador, int n_parametros, \
+    const char* parametros[]);
 
 /*
 Destruye y libera todos los recursos adquiridos en hasheador.

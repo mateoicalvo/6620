@@ -36,20 +36,24 @@ static bool str_en_array(const char* str, \
         return false;
 }
 
-int hasheador_inicializar(hasheador_t* hasheador, int n_parametros, const char* parametros[]) {
+int hasheador_inicializar(hasheador_t* hasheador, int n_parametros, \
+    const char* parametros[]) {
     
     hasheador->modo = MODO_CORRER;
     hasheador->estado = ESTADO_OK;
     
-    if (str_en_array(PARAM_AYUDA, parametros, n_parametros, NULL)) {
+    if (str_en_array(PARAM_AYUDA, parametros, n_parametros, \
+        NULL)) {
         hasheador->modo = MODO_AYUDA;
-    } else if (str_en_array(PARAM_VERSION, parametros, n_parametros, NULL)) {
+    } else if (str_en_array(PARAM_VERSION, parametros, \
+        n_parametros, NULL)) {
         hasheador->modo = MODO_VERSION;
     }
 
     size_t posicion = 0;
 
-    if (str_en_array(PARAM_INPUT, parametros, n_parametros, &posicion)) {
+    if (str_en_array(PARAM_INPUT, parametros, n_parametros, \
+        &posicion)) {
         if (*parametros[posicion + 1] == '-') {
             hasheador->entrada = stdin;
         } else {
@@ -63,7 +67,8 @@ int hasheador_inicializar(hasheador_t* hasheador, int n_parametros, const char* 
         hasheador->entrada = stdin;
     }
 
-    if (str_en_array(PARAM_OUTPUT, parametros, n_parametros, &posicion)) {
+    if (str_en_array(PARAM_OUTPUT, parametros, n_parametros, \
+        &posicion)) {
         if (*parametros[posicion + 1] == '-') {
             hasheador->salida = stdout;
         } else {
@@ -118,7 +123,9 @@ int hasheador_hashear_archivo(hasheador_t* hasheador) {
     char* line_ptr = NULL;
     size_t tamanio = 0;
     int resultado = 0;
-    while ((resultado = getline(&line_ptr, &tamanio, hasheador->entrada)) != -1) {
+    while ((resultado = getline(&line_ptr, &tamanio, \
+        hasheador->entrada)) != -1) {
+        
         string_hash_init(&sh);
         string_hash_more(&sh, line_ptr, tamanio);
         string_hash_done(&sh);
