@@ -26,8 +26,10 @@ cat in.txt | tp1 -i - > out.txt\n"
 
 #define ESTADO_OK 0
 #define ESTADO_ERROR -1
-#define CHAR_AYUDA 'h'
-#define CHAR_VERSION 'V'
+#define PARAM_AYUDA "-h"
+#define PARAM_VERSION "-V"
+#define PARAM_INPUT "-i"
+#define PARAM_OUTPUT "-o"
 
 #define MODO_AYUDA 0
 #define MODO_VERSION 1
@@ -49,6 +51,6 @@ void hasheador_destruir(hasheador_t* hasheador);
 
 int hasheador_correr(hasheador_t* hasheador);
 
-void hasheador_hashear_archivo(hasheador_t* hasheador);
+int hasheador_hashear_archivo(hasheador_t* hasheador);
 
 #endif
