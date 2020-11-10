@@ -111,7 +111,6 @@ while:
 
     j while
 
-
 salir:
     lw fp, 4(sp)
     addiu sp,sp,8
