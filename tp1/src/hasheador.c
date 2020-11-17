@@ -92,10 +92,10 @@ void hasheador_destruir(hasheador_t* hasheador) {
         return;
     }
     if (hasheador->entrada != stdin) {
-        fclose(stdin);
+        fclose(hasheador->entrada);
     }
     if (hasheador->salida != stdout) {
-        fclose(stdout);
+        fclose(hasheador->salida);
     }
 }
 
