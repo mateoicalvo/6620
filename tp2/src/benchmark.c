@@ -38,8 +38,6 @@ int crear_matrices(benchmark_t* benchmark, matriz_t* A, matriz_t* B, \
     resultado_A = matriz_parsear(A, &benchmark->cursor);
     resultado_B = matriz_parsear(B, &benchmark->cursor);
     //TODO: ERROR CHECKING
-    matriz_imprimir(A, stdout);
-    matriz_imprimir(B, stdout);
     return 0;
 }
 
