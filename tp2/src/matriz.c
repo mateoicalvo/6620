@@ -6,7 +6,6 @@
 #include "matriz_helpers.h"
 
 int matriz_crear(matriz_t* matriz, size_t dimension) {
-    
     matriz->elementos = malloc(sizeof(double)*dimension*dimension);
     if (!matriz->elementos) {
         fprintf(stderr, MSG_MATRIZ_ERROR_MALLOC);
@@ -21,12 +20,11 @@ int matriz_crear(matriz_t* matriz, size_t dimension) {
     return MATRIZ_OK;    
 }
 
-int matriz_parsear(matriz_t* matriz, char* elementos,
-    size_t dimension) {
+int matriz_parsear(matriz_t* matriz, char** elementos) {
     
-    char* nptr = elementos;
-    char* endptr = elementos;
-    size_t n = dimension * dimension;
+    char* nptr = *elementos;
+    char* endptr = *elementos;
+    size_t n = matriz->dimension * matriz->dimension;
     double elemento;
     for (size_t i = 0; i < n; i++) {
         nptr = endptr;
@@ -39,12 +37,15 @@ int matriz_parsear(matriz_t* matriz, char* elementos,
 			fprintf(stderr, MSG_MATRIZ_ERROR_PARSEAR);	
 		}
         matriz->elementos[i] = elemento;
+    }
+    *elementos = endptr;
 }
 
 void matriz_destruir(matriz_t* matriz) {
     if (matriz->elementos != NULL) {
         free(matriz->elementos);
     }
+    matriz->elementos = NULL;
 }
 
 int matriz_imprimir(matriz_t* matriz, FILE* destino) {
@@ -67,17 +68,12 @@ int matriz_imprimir(matriz_t* matriz, FILE* destino) {
                     perror("");
                     return MATRIZ_ERROR;
                 }
+        }
         resultado = fprintf(destino, "\n");
         if (resultado < 0) {
             perror("");
             return MATRIZ_ERROR;
         }
-        }
-    }
-    resultado = fprintf(destino, "\n");
-    if (resultado < 0) {
-        perror("");
-        return MATRIZ_ERROR;
     }
 	return MATRIZ_OK;
 }

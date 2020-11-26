@@ -1,5 +1,7 @@
 #include "cronometro.h"
 
+#include <stdio.h>
+
 void cronometro_crear(cronometro_t* cronometro) {
 }
 
@@ -19,6 +21,11 @@ double cronometro_tiempo_transcurrido(cronometro_t* cronometro) {
          - cronometro->t_inicial.tv_nsec) / 1.0e9;
     
     return segundos + nanosegundos;
+}
+
+void cronometro_log(cronometro_t* cronometro) {
+    double t = cronometro_tiempo_transcurrido(cronometro);
+    fprintf(stdout, "Tiempo trasncurrido: %g\n", t);
 }
 
 void cronometro_destruir(cronometro_t* cronometro) {

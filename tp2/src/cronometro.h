@@ -19,4 +19,6 @@ double cronometro_tiempo_transcurrido(cronometro_t* cronometro);
 
 void cronometro_destruir(cronometro_t* cronometro);
 
+void cronometro_log(cronometro_t* cronometro);
+
 #endif

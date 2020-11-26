@@ -7,7 +7,7 @@ void matriz_multiplicar_vector(double* A, double* B, \
             for(size_t columna = 0; columna < n; columna++) {
                 for(size_t i = 0; i < n; i++) {
                     resultado[fila*n + columna] += \
-                        A[fila*n + i] * B[i*n + columna];
+                        (A[fila*n + i] * B[i*n + columna]);
                 }
             }
         }

@@ -23,8 +23,7 @@ typedef struct matriz {
 
 int matriz_crear(matriz_t* matriz, size_t dimension);
 
-int matriz_parsear(matriz_t* matriz, char* elementos,
-    size_t dimension);
+int matriz_parsear(matriz_t* matriz, char** elementos);
 
 void matriz_destruir(matriz_t* matriz);
 
