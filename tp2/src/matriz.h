@@ -29,7 +29,7 @@ void matriz_destruir(matriz_t* matriz);
 
 int matriz_imprimir(matriz_t* matriz, FILE* destino);
 
-int matriz_multiplicar(matriz_t* A, matriz_t* B,
+void matriz_multiplicar(matriz_t* A, matriz_t* B,
     matriz_t* resultado);
 
 #endif

@@ -39,6 +39,7 @@ int matriz_parsear(matriz_t* matriz, char** elementos) {
         matriz->elementos[i] = elemento;
     }
     *elementos = endptr;
+    //TODO: Error check y return value.
 }
 
 void matriz_destruir(matriz_t* matriz) {
@@ -78,7 +79,7 @@ int matriz_imprimir(matriz_t* matriz, FILE* destino) {
 	return MATRIZ_OK;
 }
 
-int matriz_multiplicar(matriz_t* A, matriz_t* B,
+void matriz_multiplicar(matriz_t* A, matriz_t* B,
     matriz_t* resultado) {
 
     double* elementosA = A->elementos;
