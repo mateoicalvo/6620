@@ -40,6 +40,7 @@ int matriz_parsear(matriz_t* matriz, char** elementos) {
     }
     *elementos = endptr;
     //TODO: Error check y return value.
+    return 0;
 }
 
 void matriz_destruir(matriz_t* matriz) {
@@ -88,6 +89,6 @@ void matriz_multiplicar(matriz_t* A, matriz_t* B,
 
     size_t n = A->dimension;
 
-    matriz_multiplicar_vector(elementosA, elementosB,\
+    matriz_multiplicar_naive(elementosA, elementosB,\
         elementosC, n);
 }
