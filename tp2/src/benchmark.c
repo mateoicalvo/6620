@@ -9,6 +9,8 @@
 #include "matriz_helpers.h"
 #include "cronometro.h"
 
+#define CLEAR_CACHE 1
+
 int parsear_dimension(benchmark_t* benchmark, size_t* dimension) {
     size_t parseada = strtol(benchmark->matrices, \
             &(benchmark->cursor), 10);
@@ -78,7 +80,7 @@ int benchmark_correr(benchmark_t* benchmark) {
         resultado = crear_matrices(benchmark, &A, &B, &C, dimension);
         cronometro_iniciar(&cronometro);
         
-        #ifdef CLEAR_CACHE
+        #if CLEAR_CACHE
         size_t j;
 		size_t dim = 1024*1024*10;
 		int *v = malloc(dim*sizeof(int));
