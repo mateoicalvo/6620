@@ -76,7 +76,7 @@ int benchmark_correr(benchmark_t* benchmark) {
         //TODO: ERRORCHECK
         resultado = crear_matrices(benchmark, &A, &B, &C, dimension);
         cronometro_iniciar(&cronometro);
-        matriz_multiplicar(&A, &B, &C);
+        matriz_multiplicar(&A, &B, &C, &matriz_multiplicar_naive);
         cronometro_detener(&cronometro);
 
         matriz_imprimir(&C, stdout);

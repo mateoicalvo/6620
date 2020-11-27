@@ -32,7 +32,7 @@ iter_filas:
         li t5, 0                   #t5 = 0 (i)
         iter_n:
             beq t5, a3, inc_columna #i == n? -> columna ++
-            #realizar  operaciones
+            
             mul t6, a3, t3  #t6 = fila * n
             add t6, t6, t5  #t6 es fila*n + i, t6 es indice de A
 
@@ -59,7 +59,6 @@ iter_filas:
             add.d $f4, $f0, $f4
             sdc1 $f4, 0(t2)
 
-            #fin operaciones
             addi t5, t5, 1
             j iter_n
         inc_columna:

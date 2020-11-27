@@ -81,7 +81,8 @@ int matriz_imprimir(matriz_t* matriz, FILE* destino) {
 }
 
 void matriz_multiplicar(matriz_t* A, matriz_t* B,
-    matriz_t* resultado) {
+    matriz_t* resultado,
+    void (*f)(double*, double*, double*, size_t)) {
 
     double* elementosA = A->elementos;
     double* elementosB = B->elementos;
@@ -89,6 +90,6 @@ void matriz_multiplicar(matriz_t* A, matriz_t* B,
 
     size_t n = A->dimension;
 
-    matriz_multiplicar_naive(elementosA, elementosB,\
+    f(elementosA, elementosB,\
         elementosC, n);
 }
