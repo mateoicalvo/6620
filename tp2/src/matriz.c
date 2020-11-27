@@ -3,8 +3,6 @@
 #include <stdlib.h>
 #include <errno.h>
 
-#include "matriz_helpers.h"
-
 int matriz_crear(matriz_t* matriz, size_t dimension) {
     matriz->elementos = malloc(sizeof(double)*dimension*dimension);
     if (!matriz->elementos) {

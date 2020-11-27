@@ -6,6 +6,7 @@
 #include <stdlib.h>
 
 #include "matriz.h"
+#include "matriz_helpers.h"
 #include "cronometro.h"
 
 int parsear_dimension(benchmark_t* benchmark, size_t* dimension) {
@@ -86,14 +87,8 @@ int benchmark_correr(benchmark_t* benchmark) {
 		free(v);
         #endif
         
-        #ifdef MULT_ASSEMBLER
-        matriz_multiplicar(&A, &B, &C, &matriz_multiplicar_naive);
-        #endif
+        matriz_multiplicar(&A, &B, &C, &mmult);
         
-        #ifdef MULT_NAIVE
-        matriz_multiplicar(&A, &B, &C, &matriz_multiplicar_vector_naive_c);
-        #endif
-
         cronometro_detener(&cronometro);
 
         matriz_imprimir(&C, stdout);
