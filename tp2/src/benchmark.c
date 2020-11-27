@@ -76,7 +76,24 @@ int benchmark_correr(benchmark_t* benchmark) {
         //TODO: ERRORCHECK
         resultado = crear_matrices(benchmark, &A, &B, &C, dimension);
         cronometro_iniciar(&cronometro);
+        
+        #ifdef CLEAR_CACHE
+        size_t j;
+		size_t dim = 1024*1024*10;
+		int *v = malloc(dim*sizeof(int));
+		for (j = 0; j < dim; ++j)
+			v[j] = -1;
+		free(v);
+        #endif
+        
+        #ifdef MULT_ASSEMBLER
         matriz_multiplicar(&A, &B, &C, &matriz_multiplicar_naive);
+        #endif
+        
+        #ifdef MULT_NAIVE
+        matriz_multiplicar(&A, &B, &C, &matriz_multiplicar_vector_naive_c);
+        #endif
+
         cronometro_detener(&cronometro);
 
         matriz_imprimir(&C, stdout);
@@ -91,6 +108,7 @@ int benchmark_correr(benchmark_t* benchmark) {
     } else {
         resultado = BENCHMARK_RESULTADO_ERROR;
     }
+    free(benchmark->matrices);
     return resultado;
 fin_error:
     free(benchmark->matrices);
