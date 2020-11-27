@@ -32,7 +32,6 @@ iter_filas:
         li t5, 0                   #t5 = 0 (i)
         iter_n:
             beq t5, a3, inc_columna #i == n? -> columna ++
-            
             mul t6, a3, t3  #t6 = fila * n
             add t6, t6, t5  #t6 es fila*n + i, t6 es indice de A
 
