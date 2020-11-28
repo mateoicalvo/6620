@@ -3,6 +3,7 @@
     .abicalls
     .text
     .align 2
+    .set oddspreg
     .globl mmult
     .ent mmult
 
@@ -30,6 +31,8 @@ iter_filas:
     iter_columnas:
         beq t4, a3, inc_fila    #columna == n?
         li t5, 0                   #t5 = 0 (i)
+        mtc1 zero, $f6 #f6 vale cero, aca guardo sumas parciales
+        mtc1 zero, $f7 #f7 seteado a cero porque trabajo con doubles
         iter_n:
             beq t5, a3, inc_columna #i == n? -> columna ++
             mul t6, a3, t3  #t6 = fila * n
@@ -46,21 +49,18 @@ iter_filas:
             add t1, a1, t1  #t1 tiene la direccion de B[t6]
             ldc1 $f2, 0(t1) #f2 tiene el elemento de B
 
-            mul.d $f0, $f0, $f2 #f2 tiene A[ij]*B[ji]
+            madd.d $f6, $f6, $f2, $f0 #f6 tiene A[i, j]*B[j, i] + A[i-1, j-1]*B[j-1, i-1] + ...
             
-            mul t8, t3, a3  #t8 = fila * n
-            add t8, t8, t4  #t8 es fila*n + columna t8 es indice de C
-
-            sll t2, t8, 3   #t2 = t8*8
-            add t2, a2, t2  #t2 tiene la direccion de C[t8]
-            ldc1 $f4, 0(t2) #f4 tiene el elemento de C (parcial)
-
-            add.d $f4, $f0, $f4
-            sdc1 $f4, 0(t2)
-
             addi t5, t5, 1
             j iter_n
         inc_columna:
+        #Luego de iterar la fila de A y la columna de B, guardo en
+        # C[ij] la suma acumulada.
+        mul t8, t3, a3  #t8 = fila * n
+        add t8, t8, t4  #t8 es fila*n + columna es indice de C
+        sll t2, t8, 3   #t2 = t8*8
+        add t2, a2, t2  #t2 tiene la direccion de C[t8]
+        sdc1 $f6, 0(t2)
         addi t4, t4, 1
         j iter_columnas
     inc_fila:
