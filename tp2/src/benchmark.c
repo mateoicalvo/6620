@@ -9,7 +9,7 @@
 #include "matriz_helpers.h"
 #include "cronometro.h"
 
-#define CLEAR_CACHE 1
+#define CLEAR_CACHE 0
 
 int parsear_dimension(benchmark_t* benchmark, size_t* dimension) {
     size_t parseada = strtol(benchmark->matrices, \

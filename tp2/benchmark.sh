@@ -20,12 +20,12 @@ fi
 make
 
 dim_actual=1
-for filename in $3/*.txt; do
+for filename in `ls $3/*.txt | sort -V`; do
     /opt/valgrind/bin/valgrind --tool=cachegrind bin/benchmark > /dev/null < $filename
     echo -n $dim_actual" " >> $4
     echo -n $2" " >> $4
     echo -n $1" " >> $4
-    /opt/valgrind/bin/cg_annotate cachegrind.out.* /root/tp2/asm/mmult.* | tail -n2 | head -n1 >> calcus.txt    
+    /opt/valgrind/bin/cg_annotate cachegrind.out.* /root/tp2/asm/mmult.* | tail -n2 | head -n1 >> $4  
     rm cachegrind.out.*
     ((dim_actual=dim_actual+1))
 done
