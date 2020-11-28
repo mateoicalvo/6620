@@ -9,7 +9,7 @@ FLAGS_CACHEGRIND_I=$5
 FLAGS_CACHEGRIND_D=$6
 mkdir -p obj
 mkdir -p asm
-mkdir -p $RUTA_LOGS
+mkdir -p $RUTA_LOGS/raw
 
 if [[ "$RUTA_FUNCION" == *.c ]]
 then
@@ -39,8 +39,10 @@ for filename in `ls $RUTA_INPUTS/*.txt | sort -V`; do
     echo -n $CLEAR_CACHE" " >> $ARCHIVO_LOG_RESULTADOS
     echo -n $RUTA_FUNCION" " >> $ARCHIVO_LOG_RESULTADOS
     echo -n $FLAGS_CACHEGRIND_I $FLAGS_CACHEGRIND_D" " >> $ARCHIVO_LOG_RESULTADOS
-    /opt/valgrind/bin/cg_annotate cachegrind.out.* $REAL_PATH | tail -n2 | head -n1 >> $ARCHIVO_LOG_RESULTADOS 
-    #dim1_chachegrid_log.tst
+
+    archivo_log_raw=$RUTA_LOGS/raw/log_raw$iteracion.txt
+    /opt/valgrind/bin/cg_annotate cachegrind.out.* $REAL_PATH > $archivo_log_raw
+    tail -n2 $archivo_log_raw | head -n1 >> $ARCHIVO_LOG_RESULTADOS
     rm cachegrind.out.*
     ((iteracion=iteracion+1))
 done
