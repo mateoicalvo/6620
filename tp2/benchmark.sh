@@ -40,9 +40,12 @@ for filename in `ls $RUTA_INPUTS/*.txt | sort -V`; do
     echo -n $RUTA_FUNCION" " >> $ARCHIVO_LOG_RESULTADOS
     echo -n $FLAGS_CACHEGRIND_I $FLAGS_CACHEGRIND_D" " >> $ARCHIVO_LOG_RESULTADOS
 
-    archivo_log_raw=$RUTA_LOGS/raw/log_raw$iteracion.txt
-    /opt/valgrind/bin/cg_annotate cachegrind.out.* $REAL_PATH > $archivo_log_raw
-    tail -n2 $archivo_log_raw | head -n1 >> $ARCHIVO_LOG_RESULTADOS
+    archivo_log_raw=$RUTA_LOGS/raw/log_raw$iteracion
+    /opt/valgrind/bin/cg_annotate cachegrind.out.* $REAL_PATH > $archivo_log_raw.txt
+    tail -n2 $archivo_log_raw.txt | head -n1 >> $ARCHIVO_LOG_RESULTADOS
+    ruta_sin_barra="${RUTA_FUNCION//'/'/$'>'}"
+    mv $archivo_log_raw.txt $archivo_log_raw$FLAGS_CACHEGRIND_D$CLEAR_CACHE$ruta_sin_barra.txt
+    #echo -n $FLAGS_CACHEGRIND_D" "$CLEAR_CACHE" "$RUTA_FUNCION >> $archivo_log_raw
     rm cachegrind.out.*
     ((iteracion=iteracion+1))
 done
