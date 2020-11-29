@@ -31,21 +31,20 @@ fi
 
 make
 
-iteracion=1
 for filename in `ls $RUTA_INPUTS/*.txt | sort -V`; do
     /opt/valgrind/bin/valgrind --tool=cachegrind $FLAGS_CACHEGRIND_I $FLAGS_CACHEGRIND_D bin/benchmark > /dev/null < $filename
-    echo -n $iteracion" " >> $ARCHIVO_LOG_RESULTADOS
+    
+    dimension=$(echo $filename| cut -f 1 -d '.')    
+    echo -n $dimension" " >> $ARCHIVO_LOG_RESULTADOS
     echo -n $filename" " >> $ARCHIVO_LOG_RESULTADOS
     echo -n $CLEAR_CACHE" " >> $ARCHIVO_LOG_RESULTADOS
     echo -n $RUTA_FUNCION" " >> $ARCHIVO_LOG_RESULTADOS
     echo -n $FLAGS_CACHEGRIND_I $FLAGS_CACHEGRIND_D" " >> $ARCHIVO_LOG_RESULTADOS
 
-    archivo_log_raw=$RUTA_LOGS/raw/log_raw$iteracion
+    archivo_log_raw=$RUTA_LOGS/raw/log_raw$dimension
     /opt/valgrind/bin/cg_annotate cachegrind.out.* $REAL_PATH > $archivo_log_raw.txt
     tail -n2 $archivo_log_raw.txt | head -n1 >> $ARCHIVO_LOG_RESULTADOS
     ruta_sin_barra="${RUTA_FUNCION//'/'/$'>'}"
     mv $archivo_log_raw.txt $archivo_log_raw$FLAGS_CACHEGRIND_D$CLEAR_CACHE$ruta_sin_barra.txt
-    #echo -n $FLAGS_CACHEGRIND_D" "$CLEAR_CACHE" "$RUTA_FUNCION >> $archivo_log_raw
     rm cachegrind.out.*
-    ((iteracion=iteracion+1))
 done
