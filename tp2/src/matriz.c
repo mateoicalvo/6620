@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <errno.h>
 
-int matriz_crear(matriz_t* matriz, size_t dimension) {
+int matriz_crear(matriz_t* matriz, size_t dimension, bool borrar_datos) {
     matriz->elementos = malloc(sizeof(double)*dimension*dimension);
     if (!matriz->elementos) {
         fprintf(stderr, MSG_MATRIZ_ERROR_MALLOC);
@@ -15,8 +15,21 @@ int matriz_crear(matriz_t* matriz, size_t dimension) {
             matriz->elementos[elemento] = 0.0;
     }
     matriz->dimension = dimension;
+    matriz->borrar_datos = borrar_datos;
     return MATRIZ_OK;    
 }
+
+void matriz_crear_desde(matriz_t* matriz, double* elementos, size_t dimension) {
+    matriz->elementos = elementos;
+    size_t cantidad_elementos = dimension * dimension;
+    for (size_t elemento = 0; elemento < cantidad_elementos;\
+        elemento++) {
+            matriz->elementos[elemento] = 0.0;
+    }
+    matriz->dimension = dimension;
+    matriz->borrar_datos = false;
+}
+
 
 int matriz_parsear(matriz_t* matriz, char** elementos) {
     
@@ -37,12 +50,11 @@ int matriz_parsear(matriz_t* matriz, char** elementos) {
         matriz->elementos[i] = elemento;
     }
     *elementos = endptr;
-    //TODO: Error check y return value.
-    return 0;
+    return MATRIZ_OK;
 }
 
 void matriz_destruir(matriz_t* matriz) {
-    if (matriz->elementos != NULL) {
+    if (matriz->elementos != NULL && matriz->borrar_datos) {
         free(matriz->elementos);
     }
     matriz->elementos = NULL;
