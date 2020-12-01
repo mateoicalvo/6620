@@ -1,0 +1,95 @@
+--------------------------------------------------------------------------------
+I1 cache:         32768 B, 32 B, 4-way associative
+D1 cache:         32768 B, 32 B, 2-way associative
+LL cache:         524288 B, 32 B, 8-way associative
+Command:          bin/benchmark
+Data file:        cachegrind.out.461
+Events recorded:  Ir I1mr ILmr Dr D1mr DLmr Dw D1mw DLmw
+Events shown:     Ir I1mr ILmr Dr D1mr DLmr Dw D1mw DLmw
+Event sort order: Ir I1mr ILmr Dr D1mr DLmr Dw D1mw DLmw
+Thresholds:       0.1 100 100 100 100 100 100 100 100
+Include dirs:     
+User annotated:   /root/tp2/asm/mmult.s
+Auto-annotation:  off
+
+--------------------------------------------------------------------------------
+Ir          I1mr  ILmr  Dr         D1mr   DLmr  Dw         D1mw      DLmw      
+--------------------------------------------------------------------------------
+174,343,394 2,526 2,505 61,893,390 21,874 6,224 23,317,184 1,317,284 1,315,038  PROGRAM TOTALS
+
+--------------------------------------------------------------------------------
+Ir          I1mr ILmr Dr         D1mr   DLmr  Dw         D1mw      DLmw       file:function
+--------------------------------------------------------------------------------
+146,800,874   34   34 52,428,873     17     8 20,971,539 1,310,722 1,310,720  /root/tp2/src/benchmark.c:benchmark_correr
+ 12,701,411   11   11  6,063,203 16,127 3,169    557,836        16         0  /root/tp2/asm/mmult.s:mmult
+  3,340,095  127  127    880,078     16     8    308,124        83        77  /build/glibc-qeih7b/glibc-2.24/stdio-common/printf_fp.c:__printf_fp_l
+  2,239,250   51   51    397,150    539     1    236,600         2         0  /build/glibc-qeih7b/glibc-2.24/stdlib/strtod_l.c:____strtod_l_internal
+  1,254,915   16   16    264,851      0     0    231,051         0         0  /build/glibc-qeih7b/glibc-2.24/stdlib/divrem.c:__mpn_divrem
+  1,192,881   65   65    353,926     26    26    204,463         3         2  /build/glibc-qeih7b/glibc-2.24/stdio-common/vfprintf.c:vfprintf
+  1,055,310   15   15    333,644      0     0    167,316         0         0  /build/glibc-qeih7b/glibc-2.24/stdio-common/printf_fp.c:hack_digit
+    625,300   12   12    185,900      1     0    101,400         1         0  /build/glibc-qeih7b/glibc-2.24/stdlib/strtod_l.c:round_and_return
+    616,850   13   13    152,100      1     1    118,300         3         0  /build/glibc-qeih7b/glibc-2.24/stdlib/strtod_l.c:str_to_mpn.isra.0
+    477,758   40   40     38,273      6     5     38,248       596       592  /build/glibc-qeih7b/glibc-2.24/string/../sysdeps/mips/memcpy.S:memcpy
+    400,503   12   12     85,224      4     3     76,677         2         2  /build/glibc-qeih7b/glibc-2.24/libio/fileops.c:_IO_file_xsputn@@GLIBC_2.2
+    340,892    9    9     25,567      2     2          0         0         0  /build/glibc-qeih7b/glibc-2.24/string/strchrnul.c:strchrnul
+    321,180   11   11    135,228      3     0     33,820     2,116         0  /root/tp2/src/matriz.c:matriz_parsear
+    305,150   12   12     38,130      4     4          0         0         0  /build/glibc-qeih7b/glibc-2.24/string/strlen.c:strlen
+    285,144    5    5     20,090      0     0     20,090         0         0  /build/glibc-qeih7b/glibc-2.24/stdlib/../sysdeps/mips/mul_1.S:__mpn_mul_1
+    261,978    5    5     16,902      0     0     16,902         0         0  /build/glibc-qeih7b/glibc-2.24/stdlib/../sysdeps/mips/lshift.S:__mpn_lshift
+    211,285    4    4     16,903      0     0     16,903         0         0  /build/glibc-qeih7b/glibc-2.24/stdlib/../sysdeps/mips/rshift.S:__mpn_rshift
+    201,400    9    9     56,392      1     1     48,336         0         0  /build/glibc-qeih7b/glibc-2.24/stdlib/mul.c:__mpn_mul
+    190,221    6    6     76,080      0     0     38,052     3,171     3,168  /root/tp2/src/matriz.c:matriz_crear_desde
+
+--------------------------------------------------------------------------------
+-- User-annotated source: /root/tp2/asm/mmult.s
+--------------------------------------------------------------------------------
+Ir        I1mr ILmr Dr        D1mr   DLmr  Dw      D1mw DLmw 
+
+        .    .    .         .      .     .       .    .    .  	.section .mdebug.abi32
+        .    .    .         .      .     .       .    .    .  	.previous
+        .    .    .         .      .     .       .    .    .  	.nan	legacy
+        .    .    .         .      .     .       .    .    .  	.module	fp=xx
+        .    .    .         .      .     .       .    .    .  	.module	nooddspreg
+      528    2    2       197      0     0      66    0    0  	.abicalls
+   34,320    2    2    12,805      0     0   4,290    0    0  	.text
+2,230,800    1    1   832,325      8     0 278,850    0    0  $Ltext0:
+5,217,875    2    2 2,471,625  1,065 1,057 274,625   16    0  	.cfi_sections	.debug_frame
+5,217,875    2    2 2,746,250 15,054 2,112       0    0    0  	.align	2
+        .    .    .         .      .     .       .    .    .  	.globl	mmult
+        .    .    .         .      .     .       .    .    .  $LFB0 = .
+        .    .    .         .      .     .       .    .    .  	.cfi_startproc
+       16    2    2         1      0     0       5    0    0  	.set	nomips16
+        .    .    .         .      .     .       .    .    .  	.set	nomicromips
+        .    .    .         .      .     .       .    .    .  	.ent	mmult
+        .    .    .         .      .     .       .    .    .  	.type	mmult, @function
+        .    .    .         .      .     .       .    .    .  mmult:
+        .    .    .         .      .     .       .    .    .  	.frame	$fp,32,$31		# vars= 16, regs= 1/0, args= 0, gp= 8
+        .    .    .         .      .     .       .    .    .  	.mask	0x40000000,-4
+        .    .    .         .      .     .       .    .    .  	.fmask	0x00000000,0
+        .    .    .         .      .     .       .    .    .  	.set	noreorder
+        .    .    .         .      .     .       .    .    .  	.set	nomacro
+        1    1    1         0      0     0       0    0    0  	addiu	$sp,$sp,-32
+        .    .    .         .      .     .       .    .    .  	.cfi_def_cfa_offset 32
+        1    0    0         0      0     0       1    0    0  	sw	$fp,28($sp)
+        .    .    .         .      .     .       .    .    .  	.cfi_offset 30, -4
+        1    0    0         0      0     0       0    0    0  	move	$fp,$sp
+        .    .    .         .      .     .       .    .    .  	.cfi_def_cfa_register 30
+        1    0    0         0      0     0       1    0    0  	sw	$4,32($fp)
+        1    1    1         0      0     0       1    0    0  	sw	$5,36($fp)
+        1    0    0         0      0     0       1    0    0  	sw	$6,40($fp)
+        1    0    0         0      0     0       1    0    0  	sw	$7,44($fp)
+        .    .    .         .      .     .       .    .    .  $LBB2 = .
+        .    .    .         .      .     .       .    .    .  	.loc 1 6 0
+        .    .    .         .      .     .       .    .    .  	sw	$0,8($fp)
+        .    .    .         .      .     .       .    .    .  	b	$L2
+        .    .    .         .      .     .       .    .    .  	nop
+        .    .    .         .      .     .       .    .    .  
+        .    .    .         .      .     .       .    .    .  $L7:
+        .    .    .         .      .     .       .    .    .  $LBB3 = .
+-- line 41 ----------------------------------------
+
+--------------------------------------------------------------------------------
+Ir         I1mr ILmr Dr        D1mr   DLmr  Dw      D1mw DLmw 
+--------------------------------------------------------------------------------
+12,701,421   13   13 6,063,203 16,127 3,169 557,841   16    0  events annotated
+

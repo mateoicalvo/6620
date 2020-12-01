@@ -1,0 +1,107 @@
+--------------------------------------------------------------------------------
+I1 cache:         32768 B, 32 B, 4-way associative
+D1 cache:         32768 B, 32 B, 2-way associative
+LL cache:         524288 B, 32 B, 8-way associative
+Command:          bin/benchmark
+Data file:        cachegrind.out.2775
+Events recorded:  Ir I1mr ILmr Dr D1mr DLmr Dw D1mw DLmw
+Events shown:     Ir I1mr ILmr Dr D1mr DLmr Dw D1mw DLmw
+Event sort order: Ir I1mr ILmr Dr D1mr DLmr Dw D1mw DLmw
+Thresholds:       0.1 100 100 100 100 100 100 100 100
+Include dirs:     
+User annotated:   /root/tp2/asm/mmult.S
+Auto-annotation:  off
+
+--------------------------------------------------------------------------------
+Ir          I1mr  ILmr  Dr         D1mr  DLmr  Dw         D1mw      DLmw      
+--------------------------------------------------------------------------------
+147,170,897 2,427 2,410 52,522,186 3,815 2,940 21,019,052 1,311,308 1,311,244  PROGRAM TOTALS
+
+--------------------------------------------------------------------------------
+Ir          I1mr ILmr Dr         D1mr  DLmr Dw         D1mw      DLmw       file:function
+--------------------------------------------------------------------------------
+146,800,874   33   32 52,428,873    10    7 20,971,539 1,310,721 1,310,720  /root/tp2/src/benchmark.c:benchmark_correr
+
+--------------------------------------------------------------------------------
+-- User-annotated source: /root/tp2/asm/mmult.S
+--------------------------------------------------------------------------------
+Ir  I1mr ILmr Dr  D1mr DLmr Dw D1mw DLmw 
+
+-- line 5 ----------------------------------------
+  .    .    .   .    .    .  .    .    .      .align 2
+  .    .    .   .    .    .  .    .    .      .set oddspreg
+  .    .    .   .    .    .  .    .    .      .globl mmult
+  .    .    .   .    .    .  .    .    .      .ent mmult
+  .    .    .   .    .    .  .    .    .  
+  .    .    .   .    .    .  .    .    .  mmult:
+  .    .    .   .    .    .  .    .    .      .frame fp, 8, ra
+  .    .    .   .    .    .  .    .    .      .set noreorder
+  3    1    1   0    0    0  0    0    0      .cpload t9
+  .    .    .   .    .    .  .    .    .      .set reorder
+  .    .    .   .    .    .  .    .    .  
+  1    0    0   0    0    0  0    0    0      subu sp, sp, 8
+  1    1    1   0    0    0  1    0    0      .cprestore 0
+  1    0    0   0    0    0  1    0    0  	sw fp, 4(sp)
+  1    0    0   0    0    0  0    0    0      move fp, sp
+  .    .    .   .    .    .  .    .    .  
+  .    .    .   .    .    .  .    .    .      #En el ABA de la caller
+  1    0    0   0    0    0  1    0    0      sw a0, 8(fp)  #matriz_t* A esta en fp+8
+  1    0    0   0    0    0  1    0    0  	sw a1, 12(fp) #matriz_t* B esta en fp+12
+  1    0    0   0    0    0  1    0    0  	sw a2, 16(fp) #matriz_t* C esta en fp+16
+  1    0    0   0    0    0  1    0    0      sw a3, 20(fp) #dimension (n) esta en fp+20
+  .    .    .   .    .    .  .    .    .      
+  1    0    0   0    0    0  0    0    0      li t3, 0   #t3 = 0 (fila)
+  .    .    .   .    .    .  .    .    .  iter_filas:
+ 12    1    1   0    0    0  0    0    0      beq t3, a3, salir #fila == n?
+  5    0    0   0    0    0  0    0    0      li t4, 0           #t4 = 0 (columna)
+  .    .    .   .    .    .  .    .    .      iter_columnas:
+ 60    0    0   0    0    0  0    0    0          beq t4, a3, inc_fila    #columna == n?
+ 25    0    0   0    0    0  0    0    0          li t5, 0                   #t5 = 0 (i)
+ 25    0    0   0    0    0  0    0    0          mtc1 zero, $f6 #f6 vale cero, aca guardo sumas parciales
+ 25    0    0   0    0    0  0    0    0          mtc1 zero, $f7 #f7 seteado a cero porque trabajo con doubles
+  .    .    .   .    .    .  .    .    .          iter_n:
+300    1    1   0    0    0  0    0    0              beq t5, a3, inc_columna #i == n? -> columna ++
+125    0    0   0    0    0  0    0    0              mul t6, a3, t3  #t6 = fila * n
+125    0    0   0    0    0  0    0    0              add t6, t6, t5  #t6 es fila*n + i, t6 es indice de A
+  .    .    .   .    .    .  .    .    .  
+125    0    0   0    0    0  0    0    0              sll t0, t6, 3   #t0 = t6 * 8
+125    0    0   0    0    0  0    0    0              add t0, a0, t0  #t0 tiene la direccion de A[t6]
+125    0    0 125    6    6  0    0    0              ldc1 $f0, 0(t0) #f0 tiene el elemento de A
+  .    .    .   .    .    .  .    .    .  
+125    0    0   0    0    0  0    0    0              mul t7, t5, a3  #t7 = i * n
+125    1    1   0    0    0  0    0    0              add t7, t7, t4  #t7 es i*n + columna, t7 es indice de B
+  .    .    .   .    .    .  .    .    .  
+125    0    0   0    0    0  0    0    0              sll t1, t7, 3   #t1 = t7 *8
+125    0    0   0    0    0  0    0    0              add t1, a1, t1  #t1 tiene la direccion de B[t6]
+125    0    0 125    7    7  0    0    0              ldc1 $f2, 0(t1) #f2 tiene el elemento de B
+  .    .    .   .    .    .  .    .    .  
+125    0    0   0    0    0  0    0    0              madd.d $f6, $f6, $f2, $f0 #f6 tiene A[i, j]*B[j, i] + A[i-1, j-1]*B[j-1, i-1] + ...
+  .    .    .   .    .    .  .    .    .              
+125    0    0   0    0    0  0    0    0              addi t5, t5, 1
+250    0    0   0    0    0  0    0    0              j iter_n
+  .    .    .   .    .    .  .    .    .          inc_columna:
+  .    .    .   .    .    .  .    .    .          #Luego de iterar la fila de A y la columna de B, guardo en
+  .    .    .   .    .    .  .    .    .          # C[ij] la suma acumulada.
+ 25    1    1   0    0    0  0    0    0          mul t8, t3, a3  #t8 = fila * n
+ 25    0    0   0    0    0  0    0    0          add t8, t8, t4  #t8 es fila*n + columna es indice de C
+ 25    0    0   0    0    0  0    0    0          sll t2, t8, 3   #t2 = t8*8
+ 25    0    0   0    0    0  0    0    0          add t2, a2, t2  #t2 tiene la direccion de C[t8]
+ 25    0    0   0    0    0 25    7    7          sdc1 $f6, 0(t2)
+ 25    0    0   0    0    0  0    0    0          addi t4, t4, 1
+ 50    0    0   0    0    0  0    0    0          j iter_columnas
+  .    .    .   .    .    .  .    .    .      inc_fila:
+  5    1    1   0    0    0  0    0    0      addi t3, t3, 1
+ 10    0    0   0    0    0  0    0    0      j iter_filas
+  .    .    .   .    .    .  .    .    .  
+  .    .    .   .    .    .  .    .    .  salir:
+  1    0    0   1    0    0  0    0    0      lw fp, 4(sp)
+  1    0    0   0    0    0  0    0    0      addiu sp,sp,8
+  2    0    0   0    0    0  0    0    0      jr ra
+  .    .    .   .    .    .  .    .    .      
+  .    .    .   .    .    .  .    .    .      .end mmult
+
+--------------------------------------------------------------------------------
+Ir    I1mr ILmr Dr  D1mr DLmr Dw D1mw DLmw 
+--------------------------------------------------------------------------------
+2,433    7    7 251   13   13 31    7    7  events annotated
+

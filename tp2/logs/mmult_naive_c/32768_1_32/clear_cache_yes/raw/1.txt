@@ -1,0 +1,77 @@
+--------------------------------------------------------------------------------
+I1 cache:         32768 B, 32 B, 4-way associative
+D1 cache:         32768 B, 32 B, direct-mapped
+LL cache:         524288 B, 32 B, 8-way associative
+Command:          bin/benchmark
+Data file:        cachegrind.out.374
+Events recorded:  Ir I1mr ILmr Dr D1mr DLmr Dw D1mw DLmw
+Events shown:     Ir I1mr ILmr Dr D1mr DLmr Dw D1mw DLmw
+Event sort order: Ir I1mr ILmr Dr D1mr DLmr Dw D1mw DLmw
+Thresholds:       0.1 100 100 100 100 100 100 100 100
+Include dirs:     
+User annotated:   /root/tp2/asm/mmult.s
+Auto-annotation:  off
+
+--------------------------------------------------------------------------------
+Ir          I1mr  ILmr  Dr         D1mr   DLmr  Dw         D1mw      DLmw      
+--------------------------------------------------------------------------------
+147,091,384 2,370 2,358 52,504,375 14,606 2,926 21,009,855 1,320,241 1,311,213  PROGRAM TOTALS
+
+--------------------------------------------------------------------------------
+Ir          I1mr ILmr Dr         D1mr   DLmr Dw         D1mw      DLmw       file:function
+--------------------------------------------------------------------------------
+146,800,874   32   32 52,428,873 10,250    7 20,971,539 1,319,681 1,310,720  /root/tp2/src/benchmark.c:benchmark_correr
+
+--------------------------------------------------------------------------------
+-- User-annotated source: /root/tp2/asm/mmult.s
+--------------------------------------------------------------------------------
+Ir I1mr ILmr Dr D1mr DLmr Dw D1mw DLmw 
+
+ .    .    .  .    .    .  .    .    .  	.section .mdebug.abi32
+ .    .    .  .    .    .  .    .    .  	.previous
+ .    .    .  .    .    .  .    .    .  	.nan	legacy
+ .    .    .  .    .    .  .    .    .  	.module	fp=xx
+ .    .    .  .    .    .  .    .    .  	.module	nooddspreg
+16    2    2  5    0    0  2    0    0  	.abicalls
+16    2    2  5    0    0  2    0    0  	.text
+16    1    1  5    0    0  2    0    0  $Ltext0:
+19    2    2  9    1    1  1    0    0  	.cfi_sections	.debug_frame
+19    2    2 10    1    1  0    0    0  	.align	2
+ .    .    .  .    .    .  .    .    .  	.globl	mmult
+ .    .    .  .    .    .  .    .    .  $LFB0 = .
+ .    .    .  .    .    .  .    .    .  	.cfi_startproc
+16    2    2  1    0    0  5    0    0  	.set	nomips16
+ .    .    .  .    .    .  .    .    .  	.set	nomicromips
+ .    .    .  .    .    .  .    .    .  	.ent	mmult
+ .    .    .  .    .    .  .    .    .  	.type	mmult, @function
+ .    .    .  .    .    .  .    .    .  mmult:
+ .    .    .  .    .    .  .    .    .  	.frame	$fp,32,$31		# vars= 16, regs= 1/0, args= 0, gp= 8
+ .    .    .  .    .    .  .    .    .  	.mask	0x40000000,-4
+ .    .    .  .    .    .  .    .    .  	.fmask	0x00000000,0
+ .    .    .  .    .    .  .    .    .  	.set	noreorder
+ .    .    .  .    .    .  .    .    .  	.set	nomacro
+ 1    1    1  0    0    0  0    0    0  	addiu	$sp,$sp,-32
+ .    .    .  .    .    .  .    .    .  	.cfi_def_cfa_offset 32
+ 1    0    0  0    0    0  1    0    0  	sw	$fp,28($sp)
+ .    .    .  .    .    .  .    .    .  	.cfi_offset 30, -4
+ 1    0    0  0    0    0  0    0    0  	move	$fp,$sp
+ .    .    .  .    .    .  .    .    .  	.cfi_def_cfa_register 30
+ 1    0    0  0    0    0  1    0    0  	sw	$4,32($fp)
+ 1    1    1  0    0    0  1    0    0  	sw	$5,36($fp)
+ 1    0    0  0    0    0  1    0    0  	sw	$6,40($fp)
+ 1    0    0  0    0    0  1    0    0  	sw	$7,44($fp)
+ .    .    .  .    .    .  .    .    .  $LBB2 = .
+ .    .    .  .    .    .  .    .    .  	.loc 1 6 0
+ .    .    .  .    .    .  .    .    .  	sw	$0,8($fp)
+ .    .    .  .    .    .  .    .    .  	b	$L2
+ .    .    .  .    .    .  .    .    .  	nop
+ .    .    .  .    .    .  .    .    .  
+ .    .    .  .    .    .  .    .    .  $L7:
+ .    .    .  .    .    .  .    .    .  $LBB3 = .
+-- line 41 ----------------------------------------
+
+--------------------------------------------------------------------------------
+Ir  I1mr ILmr Dr D1mr DLmr Dw D1mw DLmw 
+--------------------------------------------------------------------------------
+109   13   13 35    2    2 17    0    0  events annotated
+

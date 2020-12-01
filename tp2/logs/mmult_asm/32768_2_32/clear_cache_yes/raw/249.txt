@@ -1,0 +1,139 @@
+--------------------------------------------------------------------------------
+I1 cache:         32768 B, 32 B, 4-way associative
+D1 cache:         32768 B, 32 B, 2-way associative
+LL cache:         524288 B, 32 B, 8-way associative
+Command:          bin/benchmark
+Data file:        cachegrind.out.1125
+Events recorded:  Ir I1mr ILmr Dr D1mr DLmr Dw D1mw DLmw
+Events shown:     Ir I1mr ILmr Dr D1mr DLmr Dw D1mw DLmw
+Event sort order: Ir I1mr ILmr Dr D1mr DLmr Dw D1mw DLmw
+Thresholds:       0.1 100 100 100 100 100 100 100 100
+Include dirs:     
+User annotated:   /root/tp2/asm/mmult.S
+Auto-annotation:  off
+
+--------------------------------------------------------------------------------
+Ir          I1mr  ILmr  Dr          D1mr      DLmr    Dw         D1mw      DLmw      
+--------------------------------------------------------------------------------
+624,867,974 2,523 2,503 135,710,290 3,907,280 191,901 48,816,880 1,414,923 1,414,188  PROGRAM TOTALS
+
+--------------------------------------------------------------------------------
+Ir          I1mr ILmr Dr         D1mr      DLmr    Dw         D1mw      DLmw       file:function
+--------------------------------------------------------------------------------
+247,944,009    7    7 30,876,499 3,875,436 165,277     62,007    15,501    15,501  /root/tp2/asm/mmult.S:mmult
+146,800,874   32   31 52,428,873        17      12 20,971,539 1,310,721 1,310,720  /root/tp2/src/benchmark.c:benchmark_correr
+ 52,391,905  124  124 13,826,539       128       8  4,836,108       127        87  /build/glibc-qeih7b/glibc-2.24/stdio-common/printf_fp.c:__printf_fp_l
+ 32,860,530   51   51  5,828,094     9,216   7,761  3,472,056       241         1  /build/glibc-qeih7b/glibc-2.24/stdlib/strtod_l.c:____strtod_l_internal
+ 23,648,799   16   16  4,874,546         0       0  4,254,536         0         0  /build/glibc-qeih7b/glibc-2.24/stdlib/divrem.c:__mpn_divrem
+ 19,542,062   15   15  6,246,716         0       0  3,066,754         0         0  /build/glibc-qeih7b/glibc-2.24/stdio-common/printf_fp.c:hack_digit
+ 17,396,345   65   65  5,157,990        26      26  2,982,135         1         1  /build/glibc-qeih7b/glibc-2.24/stdio-common/vfprintf.c:vfprintf
+  9,506,889   37   37    760,789     2,183       5    760,777     9,874     9,852  /build/glibc-qeih7b/glibc-2.24/string/../sysdeps/mips/memcpy.S:memcpy
+  9,176,148   12   12  2,728,044         1       1  1,488,024         0         0  /build/glibc-qeih7b/glibc-2.24/stdlib/strtod_l.c:round_and_return
+  9,052,146   13   13  2,232,036         1       1  1,736,028         4         4  /build/glibc-qeih7b/glibc-2.24/stdlib/strtod_l.c:str_to_mpn.isra.0
+  5,840,704   12   12  1,242,816        10       3  1,118,272         2         2  /build/glibc-qeih7b/glibc-2.24/libio/fileops.c:_IO_file_xsputn@@GLIBC_2.2
+  5,284,491    5    5    365,159         0       0    365,159         0         0  /build/glibc-qeih7b/glibc-2.24/stdlib/../sysdeps/mips/mul_1.S:__mpn_mul_1
+  4,970,332    9    9    372,775         2       2          0         0         0  /build/glibc-qeih7b/glibc-2.24/string/strchrnul.c:strchrnul
+  4,712,156   11   11  1,984,060       258       3    496,028    31,364    31,004  /root/tp2/src/matriz.c:matriz_parsear
+  4,465,022   12   12    558,114         4       4          0         0         0  /build/glibc-qeih7b/glibc-2.24/string/strlen.c:strlen
+  3,844,090    5    5    248,006         0       0    248,006         0         0  /build/glibc-qeih7b/glibc-2.24/stdlib/../sysdeps/mips/lshift.S:__mpn_lshift
+  3,100,085    4    4    248,007         0       0    248,007         0         0  /build/glibc-qeih7b/glibc-2.24/stdlib/../sysdeps/mips/rshift.S:__mpn_rshift
+  3,100,050    9    9    868,014         1       1    744,012         0         0  /build/glibc-qeih7b/glibc-2.24/stdlib/mul.c:__mpn_mul
+  2,790,141    6    6  1,116,048         0       0    558,036    46,501    46,501  /root/tp2/src/matriz.c:matriz_crear_desde
+  2,356,038    5    5    372,006         1       1    248,004         1         1  /build/glibc-qeih7b/glibc-2.24/stdlib/../include/rounding-mode.h:round_away
+  2,053,547   15   15    933,017    15,685  15,502    124,757         0         0  /root/tp2/src/matriz.c:matriz_imprimir
+  1,860,030    4    4    248,004         0       0          0         0         0  /build/glibc-qeih7b/glibc-2.24/stdlib/cmp.c:__mpn_cmp
+  1,240,020    2    2    372,006         3       3          0         0         0  /build/glibc-qeih7b/glibc-2.24/stdlib/strtod.c:strtod
+  1,240,020    2    2    248,004         0       0          0         0         0  /build/glibc-qeih7b/glibc-2.24/stdlib/../sysdeps/ieee754/dbl-64/mpn2dbl.c:__mpn_construct_double
+  1,116,036    5    5    124,004         0       0    310,010         0         0  /build/glibc-qeih7b/glibc-2.24/stdlib/../sysdeps/ieee754/dbl-64/dbl2mpn.c:__mpn_extract_double
+    996,032    3    3    124,504         1       1    311,260         0         0  /build/glibc-qeih7b/glibc-2.24/stdio-common/fprintf.c:fprintf
+    992,039    3    3    124,006         1       0          0         0         0  /build/glibc-qeih7b/glibc-2.24/csu/errno-loc.c:__errno_location
+    992,016    1    1          0         0       0          0         0         0  /build/glibc-qeih7b/glibc-2.24/stdlib/../sysdeps/generic/get-rounding-mode.h:round_and_return
+    869,568    0    0    248,448         0       0          0         0         0  /build/glibc-qeih7b/glibc-2.24/libio/../string/string.h:_IO_file_xsputn@@GLIBC_2.2
+    745,783    2    2    248,511         1       1     62,252         0         0  /build/glibc-qeih7b/glibc-2.24/stdio-common/../libio/libioP.h:vfprintf
+    745,530    2    2    186,258         0       0    124,255         0         0  /build/glibc-qeih7b/glibc-2.24/stdio-common/printf-parse.h:vfprintf
+    745,183    9    9     62,002       157     127          0         0         0  /build/glibc-qeih7b/glibc-2.24/string/memchr.c:memchr
+    682,022    2    2    186,006         2       2          0         0         0  /build/glibc-qeih7b/glibc-2.24/stdio-common/printf_fp.c:__printf_fp
+
+--------------------------------------------------------------------------------
+-- User-annotated source: /root/tp2/asm/mmult.S
+--------------------------------------------------------------------------------
+Ir         I1mr ILmr Dr         D1mr      DLmr    Dw     D1mw   DLmw   
+
+-- line 5 ----------------------------------------
+         .    .    .          .         .       .      .      .      .      .align 2
+         .    .    .          .         .       .      .      .      .      .set oddspreg
+         .    .    .          .         .       .      .      .      .      .globl mmult
+         .    .    .          .         .       .      .      .      .      .ent mmult
+         .    .    .          .         .       .      .      .      .  
+         .    .    .          .         .       .      .      .      .  mmult:
+         .    .    .          .         .       .      .      .      .      .frame fp, 8, ra
+         .    .    .          .         .       .      .      .      .      .set noreorder
+         3    1    1          0         0       0      0      0      0      .cpload t9
+         .    .    .          .         .       .      .      .      .      .set reorder
+         .    .    .          .         .       .      .      .      .  
+         1    0    0          0         0       0      0      0      0      subu sp, sp, 8
+         1    1    1          0         0       0      1      0      0      .cprestore 0
+         1    0    0          0         0       0      1      0      0  	sw fp, 4(sp)
+         1    0    0          0         0       0      0      0      0      move fp, sp
+         .    .    .          .         .       .      .      .      .  
+         .    .    .          .         .       .      .      .      .      #En el ABA de la caller
+         1    0    0          0         0       0      1      0      0      sw a0, 8(fp)  #matriz_t* A esta en fp+8
+         1    0    0          0         0       0      1      0      0  	sw a1, 12(fp) #matriz_t* B esta en fp+12
+         1    0    0          0         0       0      1      0      0  	sw a2, 16(fp) #matriz_t* C esta en fp+16
+         1    0    0          0         0       0      1      0      0      sw a3, 20(fp) #dimension (n) esta en fp+20
+         .    .    .          .         .       .      .      .      .      
+         1    0    0          0         0       0      0      0      0      li t3, 0   #t3 = 0 (fila)
+         .    .    .          .         .       .      .      .      .  iter_filas:
+       500    1    1          0         0       0      0      0      0      beq t3, a3, salir #fila == n?
+       249    0    0          0         0       0      0      0      0      li t4, 0           #t4 = 0 (columna)
+         .    .    .          .         .       .      .      .      .      iter_columnas:
+   124,500    0    0          0         0       0      0      0      0          beq t4, a3, inc_fila    #columna == n?
+    62,001    0    0          0         0       0      0      0      0          li t5, 0                   #t5 = 0 (i)
+    62,001    0    0          0         0       0      0      0      0          mtc1 zero, $f6 #f6 vale cero, aca guardo sumas parciales
+    62,001    0    0          0         0       0      0      0      0          mtc1 zero, $f7 #f7 seteado a cero porque trabajo con doubles
+         .    .    .          .         .       .      .      .      .          iter_n:
+31,000,500    1    1          0         0       0      0      0      0              beq t5, a3, inc_columna #i == n? -> columna ++
+15,438,249    0    0          0         0       0      0      0      0              mul t6, a3, t3  #t6 = fila * n
+15,438,249    0    0          0         0       0      0      0      0              add t6, t6, t5  #t6 es fila*n + i, t6 es indice de A
+         .    .    .          .         .       .      .      .      .  
+15,438,249    0    0          0         0       0      0      0      0              sll t0, t6, 3   #t0 = t6 * 8
+15,438,249    0    0          0         0       0      0      0      0              add t0, a0, t0  #t0 tiene la direccion de A[t6]
+15,438,249    0    0 15,438,249    15,500  15,500      0      0      0              ldc1 $f0, 0(t0) #f0 tiene el elemento de A
+         .    .    .          .         .       .      .      .      .  
+15,438,249    0    0          0         0       0      0      0      0              mul t7, t5, a3  #t7 = i * n
+15,438,249    1    1          0         0       0      0      0      0              add t7, t7, t4  #t7 es i*n + columna, t7 es indice de B
+         .    .    .          .         .       .      .      .      .  
+15,438,249    0    0          0         0       0      0      0      0              sll t1, t7, 3   #t1 = t7 *8
+15,438,249    0    0          0         0       0      0      0      0              add t1, a1, t1  #t1 tiene la direccion de B[t6]
+15,438,249    0    0 15,438,249 3,859,935 149,776      0      0      0              ldc1 $f2, 0(t1) #f2 tiene el elemento de B
+         .    .    .          .         .       .      .      .      .  
+15,438,249    0    0          0         0       0      0      0      0              madd.d $f6, $f6, $f2, $f0 #f6 tiene A[i, j]*B[j, i] + A[i-1, j-1]*B[j-1, i-1] + ...
+         .    .    .          .         .       .      .      .      .              
+15,438,249    0    0          0         0       0      0      0      0              addi t5, t5, 1
+30,876,498    0    0          0         0       0      0      0      0              j iter_n
+         .    .    .          .         .       .      .      .      .          inc_columna:
+         .    .    .          .         .       .      .      .      .          #Luego de iterar la fila de A y la columna de B, guardo en
+         .    .    .          .         .       .      .      .      .          # C[ij] la suma acumulada.
+    62,001    1    1          0         0       0      0      0      0          mul t8, t3, a3  #t8 = fila * n
+    62,001    0    0          0         0       0      0      0      0          add t8, t8, t4  #t8 es fila*n + columna es indice de C
+    62,001    0    0          0         0       0      0      0      0          sll t2, t8, 3   #t2 = t8*8
+    62,001    0    0          0         0       0      0      0      0          add t2, a2, t2  #t2 tiene la direccion de C[t8]
+    62,001    0    0          0         0       0 62,001 15,501 15,501          sdc1 $f6, 0(t2)
+    62,001    0    0          0         0       0      0      0      0          addi t4, t4, 1
+   124,002    0    0          0         0       0      0      0      0          j iter_columnas
+         .    .    .          .         .       .      .      .      .      inc_fila:
+       249    1    1          0         0       0      0      0      0      addi t3, t3, 1
+       498    0    0          0         0       0      0      0      0      j iter_filas
+         .    .    .          .         .       .      .      .      .  
+         .    .    .          .         .       .      .      .      .  salir:
+         1    0    0          1         1       1      0      0      0      lw fp, 4(sp)
+         1    0    0          0         0       0      0      0      0      addiu sp,sp,8
+         2    0    0          0         0       0      0      0      0      jr ra
+         .    .    .          .         .       .      .      .      .      
+         .    .    .          .         .       .      .      .      .      .end mmult
+
+--------------------------------------------------------------------------------
+Ir          I1mr ILmr Dr         D1mr      DLmr    Dw     D1mw   DLmw   
+--------------------------------------------------------------------------------
+247,944,009    7    7 30,876,499 3,875,436 165,277 62,007 15,501 15,501  events annotated
+
